@@ -55,11 +55,13 @@ public class Parser {
     
     private void parseDim(String toParse, BufferedReader br){
         System.out.println("FoundDim");
+        // exemple de print pour check -> ok
 
     }
     
     private void parseCars(String toParse, BufferedReader br){
         System.out.println("FoundCars");
+        // exempel de print pour check -> ok
     }
         
     public Car[] getCars(){
