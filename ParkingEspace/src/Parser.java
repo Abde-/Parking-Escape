@@ -2,7 +2,32 @@
  *
  * @author Abde / Cedric
  */
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+
 public class Parser {
+    
+    public Parser() throws FileNotFoundException{
+        File x = new File("test/test.txt");
+        BufferedReader br = new BufferedReader(new FileReader(x));
+        
+        try{  
+            String string;
+            while ((string = br.readLine()) != null){
+                System.out.println(string);
+            }
+        }
+        catch (IOException e){
+            System.out.println(e);
+        }
+            
+        
+    
     /* créer chaque méthode
        pour parser X ou Y information, par exemple
     
@@ -11,5 +36,8 @@ public class Parser {
         int dimension = Parser.getDimension()
     
         etc~
+            
+        on peut créer une méthode principale qui fasse tout ça à la construction
+        et puis mettre chaque truc dans des variables
     */
 }
