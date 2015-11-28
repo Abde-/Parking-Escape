@@ -15,9 +15,7 @@ public class Car {
     
     public Car(int[] coord1,int[] coord2, boolean x){
         // pas de gestion des coordonnées, on suppose que c'est juste
-        if (coord1[0] == coord2[0]) orient = true;
-        else { orient = false; }
-        
+        orient = coord1[0] == coord2[0];
         goal = x;
     } 
 
