@@ -12,11 +12,16 @@ import java.io.IOException;
 
 public class Parser {
     
-    public Parser() throws FileNotFoundException{
+    private Car goal;
+    private Car[] cars;
+    private int[] dimension;
+    private int[] exit; 
+    
+    public Parser(String filepath) throws FileNotFoundException{
         // constructor ouvre fichier et affiche ce qu'il y a à l'interieur
-        // reste juste qu'à parser
+        // reste juste qu'à parser. paramete filepath avec fichier.
         
-        File x = new File("test/test.txt");
+        File x = new File(filepath);
         BufferedReader br = new BufferedReader(new FileReader(x));
         
         // BufferedReader -> lire de façon buffed, càd, chaque fois
@@ -34,18 +39,18 @@ public class Parser {
     }        
         
     public Car[] getCars(){
-        return new Car[2]; // example, 2 ne veut rien dire
+        return cars; //
     }
     
     public Car getGoal(){
-        return new Car();
+        return goal;
     }
     
     public int[] getDimension(){
-        return new int[2]; // array de 2 car X*Y (2 nombres)
+        return dimension; // array de 2 car X*Y (2 nombres)
     }
     public int[] getExit(){
-        return new int[2]; // (x,y) pour la sortie
+        return exit; // (x,y) pour la sortie
     }
     
     /* créer chaque méthode

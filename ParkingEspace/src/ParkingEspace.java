@@ -12,7 +12,7 @@ public class ParkingEspace {
      * 
      */
     public static void main(String[] args) throws FileNotFoundException{
-        Parser x = new Parser();
+        Parser x = new Parser("test/test.txt");
         // TODO code application logic here
     }
     
