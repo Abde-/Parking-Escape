@@ -10,12 +10,12 @@ public class Car {
     // que ces statuts ne changent pas (les voitures ne changent pas d'orientation
     // et la voiture goal reste goal
     
-    private final boolean orient;
+    private final boolean vertical;
     private final boolean goal;
     
     public Car(int[] coord1,int[] coord2, boolean x){
         // pas de gestion des coordonnées, on suppose que c'est juste
-        orient = coord1[0] == coord2[0];
+        vertical = coord1[1] == coord2[1];
         goal = x;
     } 
 
