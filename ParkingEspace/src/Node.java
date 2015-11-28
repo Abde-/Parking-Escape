@@ -2,6 +2,9 @@
  *
  * @author Abdeselam / Cedric
  */
+
+import java.util.HashMap; // Pour vérifier que nouveau node dans Hashtamèyr
+
 public class Node {
     
     private int weight; // poids chemin
