@@ -18,6 +18,9 @@ public class Parser {
     private int[] exit; 
     
     public Parser(String filepath) throws FileNotFoundException{
+        
+        String[] criteres = {"Parking", "Elements", "Emplacements"};
+        
         // constructor ouvre fichier et affiche ce qu'il y a à l'interieur
         // reste juste qu'à parser. paramete filepath avec fichier.
         
@@ -30,13 +33,34 @@ public class Parser {
         try{  
             String string;
             while ((string = br.readLine()) != null){
+                for ( int i = 0 ; i < criteres.length ; ++i){
+                    if ( string.length() > criteres[i].length() && 
+                            string.substring(0,criteres[i].length()).equals(criteres[i]) ){
+                        // la condition de ouf x'D
+                        switch(i){
+                            // on donne le BufferedReader à l'endroit où on trouve la ligne correspondante
+                            // et on s'occupe de parser dans chaque info dans chaque méthode 
+                            case 0: parseDim(string,br); break;
+                            case 1: parseCars(string,br); break;
+                        }
+                    } 
+                }
                 System.out.println(string);
             }
         }
         catch (IOException e){
             System.out.println(e);
         }
-    }        
+    }
+    
+    private void parseDim(String toParse, BufferedReader br){
+        System.out.println("FoundDim");
+
+    }
+    
+    private void parseCars(String toParse, BufferedReader br){
+        System.out.println("FoundCars");
+    }
         
     public Car[] getCars(){
         return cars; //
