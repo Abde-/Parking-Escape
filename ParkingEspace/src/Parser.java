@@ -5,7 +5,6 @@
 
 import java.io.*;
 
-
 public class Parser {
     
     private Car goal;
@@ -14,7 +13,20 @@ public class Parser {
     private int[] exit; 
     
     public Parser(String filepath) throws FileNotFoundException{
-        
+    /* créer chaque méthode
+       pour parser X ou Y information, par exemple
+    
+        Car goal = Parser.getGoal()
+        Car[] cars = Parser.getCars()
+        int dimension = Parser.getDimension()
+    
+        etc~
+            
+        on peut créer une méthode principale qui fasse tout ça à la construction
+            -> méthodes crées ~ parseDim pour parser chaque truc dans des methodes
+            différentes, juste for the structure
+        et puis mettre chaque truc dans des variables
+    */
         String[] criteres = {"Parking", "Elements", "Emplacements"};
         
         // constructor ouvre fichier et affiche ce qu'il y a à l'interieur
@@ -57,7 +69,7 @@ public class Parser {
     
     private void parseCars(String toParse, BufferedReader br){
         System.out.println("FoundCars");
-        // exempel de print pour check -> ok
+        // exemple de print pour check -> ok
     }
         
     public Car[] getCars(){
@@ -75,17 +87,5 @@ public class Parser {
         return exit; // (x,y) pour la sortie
     }
     
-    /* créer chaque méthode
-       pour parser X ou Y information, par exemple
-    
-        Car goal = new Parser.getGoal()
-        Car[] cars = new Parser.getCars()
-        int dimension = Parser.getDimension()
-    
-        etc~
-            
-        on peut créer une méthode principale qui fasse tout ça à la construction
-        et puis mettre chaque truc dans des variables
-    */
     
 }
