@@ -13,6 +13,8 @@ import java.io.IOException;
 public class Parser {
     
     public Parser() throws FileNotFoundException{
+        // constructor ouvre fichier et affiche ce qu'il y a à l'interieur
+        // reste juste qu'à parser
         File x = new File("test/test.txt");
         BufferedReader br = new BufferedReader(new FileReader(x));
         
@@ -25,7 +27,7 @@ public class Parser {
         catch (IOException e){
             System.out.println(e);
         }
-            
+    }        
         
     
     /* créer chaque méthode
@@ -40,4 +42,5 @@ public class Parser {
         on peut créer une méthode principale qui fasse tout ça à la construction
         et puis mettre chaque truc dans des variables
     */
+    
 }
