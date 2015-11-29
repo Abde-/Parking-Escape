@@ -59,9 +59,7 @@ public class Car {
                     before = front;
                     behind[1] = front[1]; front[1] = newFront[1];
                 }
-                else{
-                    weight = -1;
-                }
+                else{ weight = -1; }
             }
             else{
                 newFront[1] = front[1]; newFront[0] = front[0]+1;
@@ -69,9 +67,7 @@ public class Car {
                     before = front;
                     behind[0] = front[0]; front[0] = newFront[0];
                 }
-                else{
-                    weight = -1;
-                }
+                else{ weight = -1; }
             }
             // attribution du poids du mouvement
             if (goal && weight != -1){ 
@@ -90,6 +86,7 @@ public class Car {
                     before = front;
                     front[1] = behind[1]; behind[1] = newBehind[1];
                 }
+                else{ weight = -1; }
             }
             else{
                 newBehind[1] = behind[1]; newBehind[0] = behind[0]-1;
@@ -97,6 +94,7 @@ public class Car {
                     before = front;
                     front[0] = behind[0]; behind[0] = newBehind[0];
                 }
+                else{ weight = -1; }
             }
             // attribution du poids du mouvement
             if (goal && weight != -1){ 
