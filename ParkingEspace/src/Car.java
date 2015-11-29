@@ -112,6 +112,17 @@ public class Car {
         return weight;
     }
     
+    public boolean inExit(int[] exit){
+        // methode pour check que la position actuelle de la voiture est bien à l'exit
+        // (donc solution trouvée)
+        boolean res = false;
+        if ((front[0] == exit[0] && front[1] == exit[1]) ||
+            (behind[0] == exit[0] && behind[1] == exit[1]) ){
+            res = true;
+        }
+        return res;
+    }
+    
     private boolean closerToExit(int[] before, int [] after, int[] exit){
         // regarde si une des coordonnées de la voiture est plus proche du exit ou pas
         boolean res = false;
