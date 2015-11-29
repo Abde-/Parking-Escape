@@ -140,8 +140,8 @@ public class Car {
     private boolean intersection(int[] coord ,Car[] cars){
         boolean res = true;
         for( Car j : cars){
-            if (coord[0] == j.getFront()[0] || coord[1] == j.getFront()[1] ||
-                coord[0] == j.getBehind()[0] || coord[1] == j.getBehind()[1]){
+            if (coord[0] == j.getFront()[0] && coord[1] == j.getFront()[1] ||
+                coord[0] == j.getBehind()[0] && coord[1] == j.getBehind()[1]){
                     res = false;
             }
         }
