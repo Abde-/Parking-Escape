@@ -18,13 +18,10 @@ public class Car {
     private int[] behind;
     // -- et la droite pour l'horizontal)
     
-    private final int[] exit;
-    
     public Car(int[] coord1,int[] coord2, boolean x, int[] ex){
         // pas de gestion des coordonnées, on suppose que c'est juste
         vertical = coord1[1] == coord2[1];
         goal = x;
-        exit = ex;
         
         if(goal){
             int index = 0;
@@ -41,7 +38,7 @@ public class Car {
         }
     }
     
-    public int move(boolean x, int[] dim, Car[] cars){
+    public int move(boolean x, int[] exit, int[] dim, Car[] cars){
         // boolean x indique vers quelle direction la voiture va
         int weight = 0;
         int[] before = new int[2];
@@ -78,7 +75,7 @@ public class Car {
             }
             // attribution du poids du mouvement
             if (goal && weight != -1){ 
-                if(closerToExit(before,front)){ weight = 0; }
+                if(closerToExit(before,front,exit)){ weight = 0; }
                 else{ weight = 2; }
             }
             else if ( weight != -1 ){ weight = 1; }
@@ -103,7 +100,7 @@ public class Car {
             }
             // attribution du poids du mouvement
             if (goal && weight != -1){ 
-                if(closerToExit(before,front)){ weight = 0; }
+                if(closerToExit(before,front,exit)){ weight = 0; }
                 else{ weight = 2; }
             }
             else if ( weight != -1 ){ weight = 1; }
@@ -115,7 +112,7 @@ public class Car {
         return weight;
     }
     
-    private boolean closerToExit(int[] before, int [] after){
+    private boolean closerToExit(int[] before, int [] after, int[] exit){
         // regarde si une des coordonnées de la voiture est plus proche du exit ou pas
         boolean res = false;
         
