@@ -38,7 +38,7 @@ public class Car {
         }
     }
     
-    public int move(boolean x, int[] exit, int[] dim, Car[] cars){
+    public int move(boolean x, int[] exit, int[] dim, int[][] map){
         // boolean x indique vers quelle direction la voiture va
         int weight = 0;
         int[] before = new int[2];
@@ -52,19 +52,18 @@ public class Car {
         if(x){
             // bouger vers le front
             int[] newFront = new int[2];
+            before[0] = front[0]; before[1] = front[1];
             if(vertical){
                 
                 newFront[0] = front[0]; newFront[1] = front[1]+1;
-                if (newFront[1] < dim[1] && intersection(newFront,cars)){ 
-                    before = front;
+                if (newFront[1] < dim[1] && intersection(newFront,map)){ 
                     behind[1] = front[1]; front[1] = newFront[1];
                 }
                 else{ weight = -1; }
             }
             else{
                 newFront[1] = front[1]; newFront[0] = front[0]+1;
-                if ( newFront[0] < dim[0] && intersection(newFront,cars) ){ 
-                    before = front;
+                if ( newFront[0] < dim[0] && intersection(newFront,map) ){
                     behind[0] = front[0]; front[0] = newFront[0];
                 }
                 else{ weight = -1; }
@@ -82,16 +81,14 @@ public class Car {
             int[] newBehind = new int[2];
             if(vertical){
                 newBehind[0] = behind[0]; newBehind[1] = behind[1]-1;
-                if (newBehind[1] >= 0 && intersection(newBehind,cars)){
-                    before = front;
+                if (newBehind[1] >= 0 && intersection(newBehind,map)){
                     front[1] = behind[1]; behind[1] = newBehind[1];
                 }
                 else{ weight = -1; }
             }
             else{
                 newBehind[1] = behind[1]; newBehind[0] = behind[0]-1;
-                if (newBehind[1] >= 0 && intersection(newBehind,cars)){ 
-                    before = front;
+                if (newBehind[1] >= 0 && intersection(newBehind,map)){ 
                     front[0] = behind[0]; behind[0] = newBehind[0];
                 }
                 else{ weight = -1; }
@@ -135,14 +132,14 @@ public class Car {
         return res;
     }
     
-    private boolean intersection(int[] coord ,Car[] cars){
+    private boolean intersection(int[] coord ,int[][] map){
+        // map est remplie de -1 sauf là où il y a des voitures
+        // de 1 à x voitures et G pour la voiture goal
         boolean res = true;
-        for( Car j : cars){
-            if (coord[0] == j.getFront()[0] && coord[1] == j.getFront()[1] ||
-                coord[0] == j.getBehind()[0] && coord[1] == j.getBehind()[1]){
-                    res = false;
-            }
+        if (map[coord[0]][coord[1]] != -1){
+                res = false;
         }
+        
         return res;
     }
     
