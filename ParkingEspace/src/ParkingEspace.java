@@ -14,6 +14,9 @@ public class ParkingEspace {
     
     public static void main(String[] args) throws FileNotFoundException{
         Parser x = new Parser("test/test.txt");
+        
+        System.out.println("Exit: " + Integer.toString(x.getExit()[0])+" "+Integer.toString(x.getExit()[1]));
+        
         // TODO code application logic here
     }
     
