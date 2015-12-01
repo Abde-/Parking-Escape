@@ -18,23 +18,22 @@ public class Car {
     private int[] behind;
     // -- et la droite pour l'horizontal)
     
-    public Car(int[] coord1,int[] coord2, boolean x, int[] ex){
+    public Car(int[] coord1,int[] coord2, boolean x){
         // pas de gestion des coordonnées, on suppose que c'est juste
         vertical = coord1[1] == coord2[1];
         goal = x;
         
-        if(goal){
-            int index = 0;
-            
-            if (vertical){
-                index = 1;
-            }
-            if ( coord1[index] > coord2[index] ){
-                front = coord1; behind = coord2;
-            }
-            else{
-                behind = coord1; front = coord2;
-            }
+
+        int index = 0;
+        
+        if (vertical){
+            index = 1;
+        }
+        if ( coord1[index] > coord2[index] ){
+            front = coord1; behind = coord2;
+        }
+        else{
+            behind = coord1; front = coord2;
         }
     }
     

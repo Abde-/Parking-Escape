@@ -13,20 +13,7 @@ public class Parser {
     private int[] exit; 
     
     public Parser(String filepath) throws FileNotFoundException{
-    /* créer chaque méthode
-       pour parser X ou Y information, par exemple
-    
-        Car goal = Parser.getGoal()
-        Car[] cars = Parser.getCars()
-        int dimension = Parser.getDimension()
-    
-        etc~
-            
-        on peut créer une méthode principale qui fasse tout ça à la construction
-            -> méthodes crées ~ parseDim pour parser chaque truc dans des methodes
-            différentes, juste for the structure
-        et puis mettre chaque truc dans des variables
-    */
+
         String[] criteres = {"Parking", "Elements"};
         
         // constructor ouvre fichier et affiche ce qu'il y a à l'interieur
@@ -37,7 +24,6 @@ public class Parser {
         
         // BufferedReader -> lire de façon buffed, càd, chaque fois
         // une ligne -> that's why string = br.readLine != null
-        System.out.println(Integer.parseInt(" 5".trim()));
         try{  
             String string;
             while ((string = br.readLine()) != null){
@@ -49,7 +35,7 @@ public class Parser {
                             // on donne le BufferedReader à l'endroit où on trouve la ligne correspondante
                             // et on s'occupe de parser dans chaque info dans chaque méthode 
                             case 0: parseDim(string,br); break;
-                            case 1: parseCars(string,br); break;
+                            case 1: parseCars(br); break;
                         }
                     } 
                 }
@@ -72,8 +58,6 @@ public class Parser {
             
             String string; int i = 0;
             
-            System.out.println(Boolean.toString(i <= dimension[0]*2));
-            
             while ((i <= dimension[0]*2) && (exit[0] == -1)){
                 string = br.readLine();
                 
@@ -89,11 +73,10 @@ public class Parser {
                 
                 else if (i % 2 != 0){
                     if (string.charAt(0) != '|'){
-                        System.out.print(string);
                         exit[0] = (i+1) / 2;
                         exit[1] = 0;
                     }
-                    else if (string.charAt(string.length()-1) != '|'){
+                    else if (string.length() > 1 && string.charAt(string.length()-1) != '|'){
                         exit[0] = i / 2;
                         exit[1] = dimension[0]-1;
                     }
@@ -104,14 +87,49 @@ public class Parser {
         catch (IOException e){
             System.out.println(e);
         }
-        
-    // exemple de print pour check -> ok
 
     }
     
-    private void parseCars(String toParse, BufferedReader br) throws FileNotFoundException{
-        System.out.println("FoundCars");
-        // exemple de print pour check -> ok
+    private void parseCars(BufferedReader br) throws FileNotFoundException{
+        int carNumber; String string;
+        String[] pre = new String[2]; pre[0] = "  Autres voitures:"; pre [1] = "  voiture ";
+        try{
+            // on suppose qu'il y a une seule voiture goal, donc on check pas
+            br.readLine();
+            string = br.readLine();
+            carNumber = Integer.parseInt(string.substring(pre[0].length()).trim());
+            br.readLine();
+            
+            
+            String index; boolean Goal;
+            cars = new Car[carNumber];
+            
+            
+            for ( int i = 0; i <= carNumber; ++i){
+                index = Integer.toString(i) + ":"; Goal = false; Car newCar;
+                int[] coord1 = new int[2]; int[] coord2 = new int[2];
+                String toParse = br.readLine(); String[] temp;
+                
+                if (i == 0) {index = "Goal:"; Goal = true;}
+                
+                toParse = toParse.substring( (pre[1]+index).length() ).trim();
+                toParse = toParse.substring(2,toParse.length()-2);
+                toParse = toParse.replace(")", ""); toParse = toParse.replace("(", "");
+                temp = toParse.split(",");
+                
+                coord1[0] = Integer.parseInt(temp[0].trim());
+                coord1[1] = Integer.parseInt(temp[1].trim());
+                coord2[0] = Integer.parseInt(temp[2].trim());
+                coord2[1] = Integer.parseInt(temp[3].trim());
+                
+                if (Goal) goal = new Car(coord1,coord2,Goal);
+                else cars[i-1] = new Car(coord1,coord2,Goal);
+            }
+
+        }
+        catch (IOException e){
+            System.out.println(e);
+        }
     }
         
     public Car[] getCars(){
@@ -126,6 +144,6 @@ public class Parser {
         return dimension; // array de 2 car X*Y (2 nombres)
     }
     public int[] getExit(){
-        return exit; // (x,y) pour la sortie
+        return exit;
     } 
 }
