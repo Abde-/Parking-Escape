@@ -16,10 +16,7 @@ public class ParkingEspace {
         Parser x = new Parser("test/test.txt");
         
         System.out.println("Exit: " + Integer.toString(x.getExit()[0])+" "+Integer.toString(x.getExit()[1]));
-        // vv le test
-        System.out.println(x.getCars()[0].getBehind()[0]);
-        System.out.println(x.getCars()[0].getBehind()[1]);
-        // ^^ le test
+        
         
     }
 }
