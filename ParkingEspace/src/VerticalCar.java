@@ -8,6 +8,12 @@
  *
  * @author Abdeselam / Cedric
  */
-public class VerticalCar {
+public class VerticalCar implements Car{
+    public VerticalCar(){
+        
+    }
     
+    public int moveFront(int[] dim){
+        
+    }
 }

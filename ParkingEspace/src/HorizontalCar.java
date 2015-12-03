@@ -10,4 +10,14 @@
  */
 public class HorizontalCar implements Car{
     
+    public HorizontalCar(){
+        
+    }
+    
+    
+    public int moveFront(int[] dim){
+        
+    }
+    
+    
 }
