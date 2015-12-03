@@ -3,7 +3,7 @@
  * @author Abdeselam / Cedric
  */
 
-public interface Car {
+public class Car {
     
     // variables 'final' indiquent que ces valeurs sont seulement assignées une
     // seule fois, ça ne sert pas à grande chose mais pour info c'est cool de savoir
