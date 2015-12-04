@@ -37,10 +37,19 @@ public class Car {
         steps.add(new int[][] { {behind[0],behind[1]},{front[0],front[1]}});
     }
     
+    // constructeur de copie
+    public Car(Car other){
+        steps = other.copyStack();
+        front = other.copyFront();
+        behind = other.copyBehind();
+        goal = other.isGoal();
+        exitorient = other.getexitorient();
+        orient = other.getorient();
+    }
 
     // oui Cedric, finalement on passe la liste de Cars et on fait le mouvement
     // par rapport à ce check
-    public int moveFront(int[] dim, Car[] cars, boolean direction){
+    public int move(int[] dim, Car[] cars, boolean direction){
         int movement = direction ? 1 : -1; // si on bouge vers l'arrière ou vers le front
         
         // mise à jour coordonnées
@@ -68,11 +77,10 @@ public class Car {
             behind[0] = steps.lastElement()[0][0]; behind[1] = steps.lastElement()[0][1];
             front[0] = steps.lastElement()[1][0]; front[1] = steps.lastElement()[1][1];
         }
-        else steps.add(new int[][] { {behind[0],behind[1]},{front[0],front[1]}});
+        else steps.add(new int[][] { {behind[0],behind[1]},{front[0],front[1]} });
 
         return weight;
     }
-
     
     public boolean isIntersect(Car other){
         boolean res = false;
@@ -108,5 +116,30 @@ public class Car {
         }
         
         System.out.println(res);
+    }
+    
+    public void goBack(){
+        steps.pop();
+    }
+    
+    public boolean isGoal(){
+        return goal;
+    }
+    
+    // méthodes utilisées pour copier la voiture
+    public Stack copyStack(){
+        return (Stack<Integer>)steps.clone();
+    }
+    public int[] copyFront(){
+        return front.clone();
+    }
+    public int[] copyBehind(){
+        return behind.clone();
+    }
+    public int getorient(){
+        return orient;
+    }
+    public boolean getexitorient(){
+        return exitorient;
     }
 }
