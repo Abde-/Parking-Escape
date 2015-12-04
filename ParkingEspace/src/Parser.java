@@ -122,8 +122,8 @@ public class Parser {
                 coord2[0] = Integer.parseInt(temp[2].trim());
                 coord2[1] = Integer.parseInt(temp[3].trim());
                 
-                if (Goal) goal = new Car(coord1,coord2,Goal);
-                else cars[i-1] = new Car(coord1,coord2,Goal);
+                if (Goal) goal = new Car(coord1,coord2,Goal,exit);
+                else cars[i-1] = new Car(coord1,coord2,Goal,exit);
             }
 
         }
