@@ -11,7 +11,7 @@ public class QueueManager {
     
     private final NodeComparator comparator = new NodeComparator();
     private final PriorityQueue<Node> heap;
-    private final HashMap<Node,Integer> hashtable;
+    private HashMap<String,Integer> hashtable;
 
     public QueueManager() {
         heap = new PriorityQueue<>(comparator);
@@ -19,11 +19,16 @@ public class QueueManager {
     }
     
     public void addToQueue(Node newNode){
-        if (isInHash(newNode)) heap.add(newNode);
+        if (!isInHash(newNode)) heap.add(newNode);
     }
     
     private boolean isInHash(Node newNode){
-        res = false;
-        if (  )
+        // la clé sera les coordonnées de toutes les voitures concatenées
+        boolean res = false;
+        if (hashtable.get(newNode.HashCode()) != null){
+            res = true;
+        }
+        else hashtable.put(newNode.HashCode(), 0 );
+        return res;
     }
 }

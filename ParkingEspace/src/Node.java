@@ -33,13 +33,21 @@ public class Node {
         if (newWeight != -1) queue.addToQueue(new Node(cars,goal,weight+newWeight,dim,exit,queue));
         
         Car[] tempCarlist = new Car[cars.length-1];
-        
+        // à finir
         
     }
     
-    @Override 
-    public int hashCode(){
-        // fonction de hashage par rapport aux coordonnées des voitures
+
+    public String HashCode(){
+        // fonction de 'hashage' par rapport aux coordonnées des voitures
+        String res = "";
+        res += Integer.toString(goal.copyBehind()[0]) + Integer.toString(goal.copyBehind()[1]) +
+                Integer.toString(goal.copyFront()[0]) + Integer.toString(goal.copyFront()[1]);
+        for (Car i: cars){
+            res += Integer.toString(i.copyBehind()[0]) + Integer.toString(i.copyBehind()[1]) +
+                Integer.toString(i.copyFront()[0]) + Integer.toString(i.copyFront()[1]);
+        }
+        return res;
     }
     
     public int getWeight(){

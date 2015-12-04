@@ -20,7 +20,7 @@ public class ParkingEspace {
         Car goalCar = x.getGoal();
         for(int i = 0; i < 5; ++i){
             goalCar.printSteps("Goal");
-            System.out.println(goalCar.moveFront(x.getDimension(), new Car[] {x.getCars()[0]}, true));
+            System.out.println(goalCar.move(x.getDimension(), new Car[] {x.getCars()[0]}, true));
         }
     }
 }
