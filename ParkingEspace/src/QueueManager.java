@@ -11,24 +11,24 @@ public class QueueManager {
     
     private final NodeComparator comparator = new NodeComparator();
     private final PriorityQueue<Node> heap;
-    private HashMap<String,Integer> hashtable;
+    private HashMap<String,Integer> hashTable;
 
     public QueueManager() {
         heap = new PriorityQueue<>(comparator);
-        hashtable = new HashMap<>();
+        hashTable = new HashMap<>();
     }
     
     public void addToQueue(Node newNode){
-        if (!isInHash(newNode)) heap.add(newNode);
+        if (!isAlreadyExtended(newNode)) heap.add(newNode);
     }
     
-    private boolean isInHash(Node newNode){
+    private boolean isAlreadyExtended(Node newNode){
         // la clé sera les coordonnées de toutes les voitures concatenées
         boolean res = false;
-        if (hashtable.get(newNode.HashCode()) != null){
+        if (hashTable.get(newNode.HashCode()) != null){
             res = true;
         }
-        else hashtable.put(newNode.HashCode(), 0 );
+        else hashTable.put(newNode.HashCode(), 0 );
         return res;
     }
 }
