@@ -62,7 +62,7 @@ public class Parser {
                 string = br.readLine();
                 
                 if (i == 0 || i == dimension[0]*2){
-                    for (int j = 0; j < dimension[1]; j++){
+                    for (int j = 0; j < dimension[1]; ++j){
                         if(!string.substring(4*j,4*(j+1)).equals("+---")){
                             if (i == 0) exit[0] = 0;
                             else exit[0] = dimension[0] -1;
