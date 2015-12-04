@@ -7,6 +7,7 @@ import java.util.Comparator;
 public class NodeComparator implements Comparator<Node>{
     // classe pour comparer 2 noeuds, qu'on utilisera dans le Heap
     
+    @Override
     public int compare( Node first, Node second ){
         int res;
         if (first.getWeight() > second.getWeight()) res = 1;

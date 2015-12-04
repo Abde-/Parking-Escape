@@ -3,7 +3,6 @@
  * @author Abdeselam / Cedric
  */
 
-import java.util.HashMap; // Pour vérifier que nouveau node dans Hashtamèyr
 
 public class Node {
     
@@ -27,12 +26,20 @@ public class Node {
     
     public void extend(){
         // création de nouveaux noeuds et rajouter à queue
+        
         int newWeight = goal.move(dim, cars, true);
         if (newWeight != -1) queue.addToQueue(new Node(cars,goal,weight+newWeight,dim,exit,queue));
+        goal.goBack();
+        
         newWeight = goal.move(dim,cars,false);
         if (newWeight != -1) queue.addToQueue(new Node(cars,goal,weight+newWeight,dim,exit,queue));
+        goal.goBack();
         
-        Car[] tempCarlist = new Car[cars.length-1];
+        Car[] tempCarlist;
+        
+        for (int i = 0; i < cars.length; ++i){
+            
+        }
         // à finir
         
     }
