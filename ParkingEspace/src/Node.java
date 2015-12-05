@@ -3,10 +3,9 @@
  * @author Abdeselam / Cedric
  */
 
-
 public class Node {
     
-    private int weight; // poids chemin
+    private int weight; // poids total de toutes les arêtes du chemin
     private int[] dim;
     private Car[] cars;
     private Car goal;
@@ -25,23 +24,35 @@ public class Node {
     }
     
     public void extend(){
-        // création de nouveaux noeuds et rajouter à queue
+        // création des nouveaux noeuds correspondants à tous les mouvements
+        // possibles à partir du noeud courrant et ajout au heap
         
-        int newWeight = goal.move(dim, cars, true);
+        boolean forward = true, backward = false;
+        int newWeight;
+        
+        // mouvements de la voiture goal
+        // avant
+        newWeight = goal.move(dim, cars, forward);
         if (newWeight != -1) queue.addToQueue(new Node(cars,goal,weight+newWeight,dim,exit,queue));
-        goal.goBack();
+        goal.moveBack();
         
-        newWeight = goal.move(dim,cars,false);
+        // arrière
+        newWeight = goal.move(dim, cars, backward);
         if (newWeight != -1) queue.addToQueue(new Node(cars,goal,weight+newWeight,dim,exit,queue));
-        goal.goBack();
+        goal.moveBack();
         
-        Car[] tempCarlist;
-        
+        // mouvement des autres voitures
         for (int i = 0; i < cars.length; ++i){
+            // avant
+            newWeight = cars[i].move(dim, cars, forward);
+            if (newWeight != -1) queue.addToQueue(new Node(cars,goal,weight+newWeight,dim,exit,queue));
+            cars[i].moveBack();
             
-        }
-        // à finir
-        
+            // arrière
+            newWeight = cars[i].move(dim, cars, backward);
+            if (newWeight != -1) queue.addToQueue(new Node(cars,goal,weight+newWeight,dim,exit,queue));
+            cars[i].moveBack();
+        }        
     }
     
 
