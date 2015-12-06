@@ -93,4 +93,12 @@ public class Node {
     public boolean isResult(){
         return goal.isInDomain(exit);
     }
+    
+    public Car[] getCarsList() {
+        return cars;
+    }
+    
+    public Car getGoalCar() {
+        return goal;
+    }
 }
