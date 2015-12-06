@@ -16,8 +16,6 @@ public class Car {
     
     private int[] front = new int[2];
     private int[] behind = new int[2];
-    private int[] RecoverFront = new int[2];
-    private int[] RecoverBehind = new int[2];
     
     public Car(int[] coord1, int[] coord2, boolean isGoalCar, int[] exit){
         goal = isGoalCar;
@@ -45,21 +43,17 @@ public class Car {
         steps = other.copyStack();
         front = other.copyFront();
         behind = other.copyBehind();
-        RecoverFront = other.copyRecoverFront();
-        RecoverBehind = other.copyRecoverBehind();
         lastIntersect = other.lastIntersect;
         goal = other.isGoal();
         exitOrient = other.getExitOrient();
         orient = other.getOrient();
     }
 
-    public int move(int[] dim, Car[] cars, boolean direction){
+    public int move(int[] dim, Car[] cars, boolean direction, int currentCar){
+        // currentCar est l'indice de la voiture dans la liste de voitures (-1 si goal)
+        
         int movement = direction ? 1 : -1; // +1 si on bouge vers l'avant et -1 en arrière
         int weight = -1; // le poids -1 est une indication d'un mouvement impossible
-        
-        // sauvegarde des dernières coordonnées pour retourner à sa dernière position
-        RecoverBehind[0] = behind[0]; RecoverBehind[1] = behind[1];
-        RecoverFront[0] = front[0]; RecoverFront[1] = front[1];
         
         // mise à jour coordonnées
         behind[orient] = behind[orient] +movement; front[orient] = front[orient] +movement;    
@@ -71,7 +65,7 @@ public class Car {
         
         // si la voiture goal est en collision avec une autre, on sauvegarde l'état
         // pour pouvoir donner une raison si on ne trouve pas de solution
-        int IntersectWith = this.IntersectWithACar(cars);
+        int IntersectWith = this.IntersectWithACar(cars, currentCar);
         
         if (IntersectWith >= 0){
             // si goal, sauvegarde de l'indice de la voiture qui l'a bloqué
@@ -96,10 +90,10 @@ public class Car {
         return (behind[orient] >= 0 && front[orient] < dim[orient]);
     }
     
-    public int IntersectWithACar(Car[] cars){
+    public int IntersectWithACar(Car[] cars, int currentCar){
         int i = 0, intersectWith = -1;
         while ( i < cars.length && intersectWith == -1 ){
-            if(this.isIntersect(cars[i])){
+            if(i != currentCar && this.isIntersect(cars[i])){
                 intersectWith = i;
             }
             i +=1;
@@ -125,12 +119,12 @@ public class Car {
     }
     
     public void moveBack(){
-        // rétablit les coordonnées de la position précédente
-        behind[0] = RecoverBehind[0]; behind[1] = RecoverBehind[1];
-        front[0] = RecoverFront[0]; front[1] = RecoverFront[1];
-        
         // rétablit le chemin précédent
         steps.pop();
+        
+        // rétablit les coordonnées de la position précédente
+        behind[0] = steps.lastElement()[0][0]; behind[1] = steps.lastElement()[0][1];
+        front[0] = steps.lastElement()[1][0]; front[1] = steps.lastElement()[1][1];
     }
     
     // afficher etapes
@@ -165,12 +159,6 @@ public class Car {
     }
     public int[] copyBehind(){
         return behind.clone();
-    }
-    public int[] copyRecoverFront(){
-        return RecoverFront.clone();
-    }
-    public int[] copyRecoverBehind(){
-        return RecoverBehind.clone();
     }
     public int getOrient(){
         return orient;

@@ -13,14 +13,19 @@ public class ParkingEspace {
      */
         
     public static void main(String[] args) throws FileNotFoundException{
-        Parser x = new Parser("test/test.txt");
         
-        System.out.println("Exit: " + Integer.toString(x.getExit()[0])+" "+Integer.toString(x.getExit()[1]));
+        // lecture et parsing du fichier de données
+        Parser parsedInfo = new Parser("test/test.txt");
         
-        Car goalCar = x.getGoal();
-        for(int i = 0; i < 5; ++i){
+        // résolution du problème
+        Solver solution = new Solver(parsedInfo);
+        
+        System.out.println("Exit: " + Integer.toString(parsedInfo.getExit()[0])+" "+Integer.toString(parsedInfo.getExit()[1]));
+        
+        Car goalCar = parsedInfo.getGoal();
+        for(int i = 0; i < 4; ++i){
             goalCar.printSteps("Goal");
-            System.out.println(goalCar.move(x.getDimension(), new Car[] {x.getCars()[0]}, true));
+            System.out.println(goalCar.move(parsedInfo.getDimension(), new Car[] {parsedInfo.getCars()[0]}, true, -1));
         }
     }
 }

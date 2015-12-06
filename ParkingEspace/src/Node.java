@@ -26,38 +26,41 @@ public class Node {
     public void extend(){
         // création des nouveaux noeuds correspondants à tous les mouvements
         // possibles à partir du noeud courrant et ajout au heap
+        // la gestion de la priorité et des noeuds déjà traités se fait dans le heap
         
         boolean forward = true, backward = false;
         int newWeight;
         
         // mouvements de la voiture goal
         // avant
-        newWeight = goal.move(dim, cars, forward);
+        newWeight = goal.move(dim, cars, forward, -1);
         if (newWeight != -1) queue.addToQueue(new Node(cars,goal,weight+newWeight,dim,exit,queue));
         goal.moveBack();
         
         // arrière
-        newWeight = goal.move(dim, cars, backward);
+        newWeight = goal.move(dim, cars, backward, -1);
         if (newWeight != -1) queue.addToQueue(new Node(cars,goal,weight+newWeight,dim,exit,queue));
         goal.moveBack();
         
         // mouvement des autres voitures
         for (int i = 0; i < cars.length; ++i){
             // avant
-            newWeight = cars[i].move(dim, cars, forward);
+            newWeight = cars[i].move(dim, cars, forward, i);
             if (newWeight != -1) queue.addToQueue(new Node(cars,goal,weight+newWeight,dim,exit,queue));
             cars[i].moveBack();
             
             // arrière
-            newWeight = cars[i].move(dim, cars, backward);
+            newWeight = cars[i].move(dim, cars, backward, i);
             if (newWeight != -1) queue.addToQueue(new Node(cars,goal,weight+newWeight,dim,exit,queue));
             cars[i].moveBack();
         }        
     }
-    
 
-    public String HashCode(){
-        // fonction de 'hashage' par rapport aux coordonnées des voitures
+    public String hashString(){
+
+        // renvoie un string constitué de la concaténation des coordonnées des voitures
+        // et qui servira de base à la fonction de hashage pour retenir les noeuds déjà traités
+
         String res = "";
         res += Integer.toString(goal.copyBehind()[0]) + Integer.toString(goal.copyBehind()[1]) +
                 Integer.toString(goal.copyFront()[0]) + Integer.toString(goal.copyFront()[1]);
