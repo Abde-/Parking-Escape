@@ -5,9 +5,9 @@
  */
 public class Solver {
     
-    boolean solved;
-    Node solution;
-    QueueManager heap;
+    private boolean solved;
+    private Node solution;
+    private QueueManager heap;
     
     public Solver (Parser parsedInfo){
         // algorithme de résolution du problème
