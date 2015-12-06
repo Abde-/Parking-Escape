@@ -9,7 +9,7 @@ public class Car {
     
     private Stack<int[][]> steps = new Stack<>();  // stack des déplacements
     private final boolean goal;
-    private int lastIntersect;
+    private Car lastIntersect;
     
     private final int orient; // la direction vers laquelle bouge la voiture (vertical: 0 ou horizontal: 1)
     private final boolean exitOrient; // la direction vers laquelle est l'exit
@@ -49,7 +49,7 @@ public class Car {
         orient = other.getOrient();
     }
 
-    public int move(int[] dim, Car[] cars, boolean direction, int currentCar){
+    public int move(int[] dim, Car[] cars, boolean direction){
         // currentCar est l'indice de la voiture dans la liste de voitures (-1 si goal)
         
         int movement = direction ? 1 : -1; // +1 si on bouge vers l'avant et -1 en arrière
@@ -65,9 +65,9 @@ public class Car {
         
         // si la voiture goal est en collision avec une autre, on sauvegarde l'état
         // pour pouvoir donner une raison si on ne trouve pas de solution
-        int IntersectWith = this.IntersectWithACar(cars, currentCar);
+        Car IntersectWith = this.IntersectWithACar(cars);
         
-        if (IntersectWith >= 0){
+        if (IntersectWith != null){
             // si goal, sauvegarde de l'indice de la voiture qui l'a bloqué
             if (goal) lastIntersect = IntersectWith;
         }
@@ -90,11 +90,11 @@ public class Car {
         return (behind[orient] >= 0 && front[orient] < dim[orient]);
     }
     
-    public int IntersectWithACar(Car[] cars, int currentCar){
-        int i = 0, intersectWith = -1;
-        while ( i < cars.length && intersectWith == -1 ){
-            if(i != currentCar && this.isIntersect(cars[i])){
-                intersectWith = i;
+    public Car IntersectWithACar(Car[] cars){
+        int i = 0; Car intersectWith = null;
+        while ( i < cars.length && intersectWith == null ){
+            if(this.isIntersect(cars[i])){
+                intersectWith = cars[i];
             }
             i +=1;
         }

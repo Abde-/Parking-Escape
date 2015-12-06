@@ -33,24 +33,39 @@ public class Node {
         
         // mouvements de la voiture goal
         // avant
-        newWeight = goal.move(dim, cars, forward, -1);
+        newWeight = goal.move(dim, cars, forward);
         if (newWeight != -1) queue.addToQueue(new Node(cars,goal,weight+newWeight,dim,exit,queue));
         goal.moveBack();
         
         // arrière
-        newWeight = goal.move(dim, cars, backward, -1);
+        newWeight = goal.move(dim, cars, backward);
         if (newWeight != -1) queue.addToQueue(new Node(cars,goal,weight+newWeight,dim,exit,queue));
         goal.moveBack();
         
         // mouvement des autres voitures
         for (int i = 0; i < cars.length; ++i){
+            // création de nouvelle liste sans inclure elle meme
+            Car[] newCarlist = new Car[cars.length];
+            newCarlist[0] = goal;
+            int j = 1, newindex = i;
+            
+            while ( j < cars.length ){
+                if (j != newindex+1){
+                    newCarlist[j] = cars[j];
+                    j +=1;
+                }
+                else{
+                    newindex -= 1;
+                }
+            }
+            
             // avant
-            newWeight = cars[i].move(dim, cars, forward, i);
+            newWeight = cars[i].move(dim, newCarlist, forward);
             if (newWeight != -1) queue.addToQueue(new Node(cars,goal,weight+newWeight,dim,exit,queue));
             cars[i].moveBack();
             
             // arrière
-            newWeight = cars[i].move(dim, cars, backward, i);
+            newWeight = cars[i].move(dim, newCarlist, backward);
             if (newWeight != -1) queue.addToQueue(new Node(cars,goal,weight+newWeight,dim,exit,queue));
             cars[i].moveBack();
         }        
