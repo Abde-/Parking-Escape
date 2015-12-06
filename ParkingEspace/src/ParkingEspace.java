@@ -20,12 +20,5 @@ public class ParkingEspace {
         // résolution du problème
         Solver solution = new Solver(parsedInfo);
         solution.printResult();
-        /*System.out.println("Exit: " + Integer.toString(parsedInfo.getExit()[0])+" "+Integer.toString(parsedInfo.getExit()[1]));
-        
-        Car goalCar = parsedInfo.getGoal();
-        for(int i = 0; i < 4; ++i){
-            goalCar.printSteps("Goal");
-            System.out.println(goalCar.move(parsedInfo.getDimension(), new Car[] {parsedInfo.getCars()[0]}, true));
-        }*/
     }
 }

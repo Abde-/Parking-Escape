@@ -21,6 +21,7 @@ public class Node {
         dim = dimension;
         exit = ex;
         queue = q;
+        weight = poids;
     }
     
     public void extend(){
@@ -56,17 +57,7 @@ public class Node {
                 }
                 else ++k;
             }
-            /*
-            while ( j < cars.length ){
-                if (j != newindex+1){
-                    newCarlist[j] = cars[j];
-                    j +=1;
-                }
-                else{
-                    newindex -= 1;
-                }
-            }*/
-            
+           
             // avant
             newWeight = cars[i].move(dim, newCarList, forward);
             if (newWeight != -1) queue.addToQueue(new Node(cars,goal,weight+newWeight,dim,exit,queue));

@@ -36,9 +36,9 @@ public class Solver {
     
     public void printResult(){
         if (solved){
-            int nbOfMoves = solution.getGoalCar().getNbOfMoves();
+            int nbOfMoves = solution.getGoalCar().getNbOfMoves()-1;
             for (int i = 0; i < solution.getCarsList().length; ++i)
-                nbOfMoves += solution.getCarsList()[i].getNbOfMoves();       
+                nbOfMoves += solution.getCarsList()[i].getNbOfMoves()-1;       
             
             System.out.println("Une façon de sortir du parking en "+Integer.toString(nbOfMoves)+" mouvements a été trouvée");
             solution.getGoalCar().printSteps("Goal");
