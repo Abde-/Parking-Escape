@@ -150,6 +150,10 @@ public class Car {
         return goal;
     }
     
+    public int getNbOfMoves(){
+        return steps.size();
+    }
+    
     // méthodes utilisées pour copier la voiture
     public Stack copyStack(){
         return (Stack<Integer>)steps.clone();

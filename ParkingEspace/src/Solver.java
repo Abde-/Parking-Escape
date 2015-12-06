@@ -36,9 +36,15 @@ public class Solver {
     
     public void printResult(){
         if (solved){
-            System.out.println("Une façon de sortir du parking"+"en %d mouvements a été trouvée");
+            int nbOfMoves = solution.getGoalCar().getNbOfMoves();
+            for (int i = 0; i < solution.getCarsList().length; ++i)
+                nbOfMoves += solution.getCarsList()[i].getNbOfMoves();       
+            
+            System.out.println("Une façon de sortir du parking en "+Integer.toString(nbOfMoves)+"mouvements a été trouvée");
         }
-        System.out.println(solution);
+        else {
+            System.out.println("Il n'y a pas moyen de sortir du parking");
+        }
     }
     
 }
