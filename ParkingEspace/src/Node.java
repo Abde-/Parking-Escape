@@ -45,10 +45,18 @@ public class Node {
         // mouvement des autres voitures
         for (int i = 0; i < cars.length; ++i){
             // création de nouvelle liste sans inclure elle meme
-            Car[] newCarlist = new Car[cars.length];
-            newCarlist[0] = goal;
-            int j = 1, newindex = i;
+            Car[] newCarList = new Car[cars.length];
+            newCarList[0] = goal;
+            int j = 1, k = 0; // newindex = i;
             
+            while (j < cars.length){
+                if (k != i){
+                    newCarList[j] = cars[k];
+                    ++j; ++k;
+                }
+                else ++k;
+            }
+            /*
             while ( j < cars.length ){
                 if (j != newindex+1){
                     newCarlist[j] = cars[j];
@@ -57,15 +65,15 @@ public class Node {
                 else{
                     newindex -= 1;
                 }
-            }
+            }*/
             
             // avant
-            newWeight = cars[i].move(dim, newCarlist, forward);
+            newWeight = cars[i].move(dim, newCarList, forward);
             if (newWeight != -1) queue.addToQueue(new Node(cars,goal,weight+newWeight,dim,exit,queue));
             cars[i].moveBack();
             
             // arrière
-            newWeight = cars[i].move(dim, newCarlist, backward);
+            newWeight = cars[i].move(dim, newCarList, backward);
             if (newWeight != -1) queue.addToQueue(new Node(cars,goal,weight+newWeight,dim,exit,queue));
             cars[i].moveBack();
         }        
