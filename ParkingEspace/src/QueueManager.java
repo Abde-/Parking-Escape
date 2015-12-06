@@ -29,6 +29,10 @@ public class QueueManager {
         return(heap.poll());
     }
     
+    public boolean isEmpty() {
+        return heap.isEmpty();
+    }
+    
     private boolean isAlreadyExtended(Node newNode){
         // Vérifie si on a déjà traité ce noeud. Si oui il ne sera pas rajouté au heap
         // si non on va l'ajouter à la liste des noeuds déjà traités en hashant

@@ -25,7 +25,7 @@ public class ParkingEspace {
         Car goalCar = parsedInfo.getGoal();
         for(int i = 0; i < 4; ++i){
             goalCar.printSteps("Goal");
-            System.out.println(goalCar.move(parsedInfo.getDimension(), new Car[] {parsedInfo.getCars()[0]}, true, -1));
+            System.out.println(goalCar.move(parsedInfo.getDimension(), new Car[] {parsedInfo.getCars()[0]}, true));
         }
     }
 }
