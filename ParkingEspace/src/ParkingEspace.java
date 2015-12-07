@@ -9,7 +9,7 @@ public class ParkingEspace {
 
     /**
      * @param args le path du fichier test (pour NetBeans on teste directement dans la ligne 16)
-     * @throws FileNotFoundException 
+     * @throws FileNotFoundException  
      */
         
     public static void main(String[] args) throws FileNotFoundException{
