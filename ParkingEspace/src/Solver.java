@@ -41,12 +41,13 @@ public class Solver {
                 nbOfMoves += solution.getCarsList()[i].getNbOfMoves()-1;       
             
             System.out.println("Une façon de sortir du parking en "+Integer.toString(nbOfMoves)+" mouvements a été trouvée");
-            solution.getGoalCar().printSteps("Goal");
+            solution.getGoalCar().printSteps();
             for (int i = 0; i < solution.getCarsList().length; ++i)
-                solution.getCarsList()[i].printSteps(Integer.toString(i));
+                solution.getCarsList()[i].printSteps();
         }
         else {
             System.out.println("Il n'y a pas moyen de sortir du parking");
+            solution.getGoalCar().printNoSolution();
         }
     }
     

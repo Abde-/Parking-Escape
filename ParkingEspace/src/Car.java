@@ -10,6 +10,7 @@ public class Car {
     private Stack<int[][]> steps = new Stack<>();  // stack des déplacements
     private final boolean goal;
     private Car lastIntersect;
+    private String carID;
     
     private final int orient; // la direction vers laquelle bouge la voiture (vertical: 0 ou horizontal: 1)
     private final boolean exitOrient; // la direction vers laquelle est l'exit
@@ -17,7 +18,8 @@ public class Car {
     private int[] front = new int[2];
     private int[] behind = new int[2];
     
-    public Car(int[] coord1, int[] coord2, boolean isGoalCar, int[] exit){
+    public Car(String id, int[] coord1, int[] coord2, boolean isGoalCar, int[] exit){
+        carID = id;
         goal = isGoalCar;
         orient = coord1[0] != coord2[0] ? 0 : 1;    // (vertical: 0 ou horizontal: 1)
         
@@ -40,6 +42,7 @@ public class Car {
     
     // constructeur de copie
     public Car(Car other){
+        carID = other.getID();
         steps = other.copyStack();
         front = other.copyFront();
         behind = other.copyBehind();
@@ -128,11 +131,11 @@ public class Car {
     }
     
     // afficher etapes
-    public void printSteps(String carName){
+    public void printSteps(){
         Iterator<int[][]> stepIterator = steps.iterator();
         int[][] current = stepIterator.next();
         
-        String res = "Voiture "+ carName + ": ";
+        String res = "Voiture "+ carID + ": ";
         res += "[("+Integer.toString(current[0][0]) + "," + Integer.toString(current[0][1]) + "),(" +
                 Integer.toString(current[1][0]) + "," + Integer.toString(current[1][1]) + ")] ";
         
@@ -144,6 +147,11 @@ public class Car {
         }
         
         System.out.println(res);
+    }
+    
+    // à renomer
+    public void printNoSolution(){
+        System.out.println("Voiture goal bloquée par la voiture "+lastIntersect.getID());
     }
         
     public boolean isGoal(){
@@ -157,6 +165,9 @@ public class Car {
     // méthodes utilisées pour copier la voiture
     public Stack copyStack(){
         return (Stack<Integer>)steps.clone();
+    }
+    public String getID(){
+        return carID;
     }
     public int[] copyFront(){
         return front.clone();
