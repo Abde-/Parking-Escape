@@ -8,9 +8,13 @@ public class Solver {
     private boolean solved;
     private Node solution;
     private QueueManager heap;
+    private int[] dim;
+    private int[] exit;
     
     public Solver (Parser parsedInfo){
         // algorithme de résolution du problème
+        
+        dim = parsedInfo.getDimension();
         
         // création du heap utilisé pour trier les noeuds selon leur priorité
         heap = new QueueManager();
