@@ -72,7 +72,7 @@ public class Car {
         
         if (IntersectWith != null){
             // si goal, sauvegarde de l'indice de la voiture qui l'a bloqué
-            if (goal) lastIntersect = IntersectWith;
+            if (goal && (exitOrient == direction)) lastIntersect = IntersectWith;
         }
         else if (this.isInGrid(dim)) {
             // attribution du poids relatif au mouvement

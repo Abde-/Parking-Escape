@@ -92,12 +92,12 @@ public class Parser {
     
     private void parseCars(BufferedReader br) throws FileNotFoundException{
         int carNumber; String string;
-        String[] pre = new String[2]; pre[0] = "  Autres voitures:"; pre [1] = "  voiture ";
+        String[] pre = new String[2]; pre[0] = "Autres voitures:"; pre [1] = "voiture ";
         try{
             // on suppose qu'il y a une seule voiture goal, donc on check pas
             br.readLine();
             string = br.readLine();
-            carNumber = Integer.parseInt(string.substring(pre[0].length()).trim());
+            carNumber = Integer.parseInt(string.trim().substring(pre[0].length()).trim());
             br.readLine();
             
             
@@ -112,7 +112,7 @@ public class Parser {
                 
                 if (i == 0) {index = "Goal:"; Goal = true;}
                 
-                toParse = toParse.substring( (pre[1]+index).length() ).trim();
+                toParse = toParse.trim().substring( (pre[1]+index).length() ).trim();
                 toParse = toParse.substring(2,toParse.length()-2);
                 toParse = toParse.replace(")", ""); toParse = toParse.replace("(", "");
                 temp = toParse.split(",");
