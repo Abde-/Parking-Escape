@@ -73,7 +73,7 @@ public class Parser {
                 
                 else if (i % 2 != 0){
                     if (string.charAt(0) != '|'){
-                        exit[0] = (i+1) / 2;
+                        exit[0] = i / 2;
                         exit[1] = 0;
                     }
                     else if (string.length() > 1 && string.charAt(string.length()-1) != '|'){
