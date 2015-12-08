@@ -55,4 +55,39 @@ public class Solver {
         }
     }
     
+    public void printMatrix(){
+            /////////////////////////////// nouvelle fonction - fonction temporaire
+            char[][] carMatrix = new char[dim[0]][dim[1]];
+            for(int i = 0; i < dim[0]; ++i) for (int j = 0; j < dim[1]; ++j) carMatrix[i][j] = ' ';
+            
+            int[] currentFront = solution.getGoalCar().copyFront(), currentBehind = solution.getGoalCar().copyBehind();
+            carMatrix[currentFront[0]][currentFront[1]] = solution.getGoalCar().getID().charAt(0);
+            carMatrix[currentBehind[0]][currentBehind[1]] = solution.getGoalCar().getID().charAt(0);
+            
+            for (Car i: solution.getCarsList()){
+                currentFront = i.copyFront(); currentBehind = i.copyBehind();
+                carMatrix[currentFront[0]][currentFront[1]] = i.getID().charAt(0);
+                carMatrix[currentBehind[0]][currentBehind[1]] = i.getID().charAt(0);
+            }
+            
+            String line;
+            for(int i = 0; i < dim[0]*2+1; ++i){
+                line = "";
+                
+                if(i == 0 || dim[0]*2 == i)
+                    for(int j = 0; j < dim[1]; ++j){
+                        if(exit[0] == i/2 && exit[1] == j) line += "+   ";
+                        else line += "+---";
+                        //...
+                    }
+                
+                for(int j = 0; j < dim[1]; ++j){
+                    line += carMatrix[i][j];
+                }
+                //...
+                System.out.println(line);
+            }
+            //////////////////////////////////// nouvelle fonction - fonction temporaire
+    }
+    
 }
