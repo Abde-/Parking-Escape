@@ -10,11 +10,14 @@ public class Solver {
     private QueueManager heap;
     private int[] dim;
     private int[] exit;
+    private boolean vertical;
     
     public Solver (Parser parsedInfo){
         // algorithme de résolution du problème
         
         dim = parsedInfo.getDimension();
+        exit = parsedInfo.getExit();
+        vertical = parsedInfo.getGoal().isVertical();
         
         // création du heap utilisé pour trier les noeuds selon leur priorité
         heap = new QueueManager();
@@ -40,11 +43,19 @@ public class Solver {
     
     public void printResult(){
         if (solved){
+            printMatrix();
             int nbOfMoves = solution.getGoalCar().getNbOfMoves()-1;
             for (int i = 0; i < solution.getCarsList().length; ++i)
                 nbOfMoves += solution.getCarsList()[i].getNbOfMoves()-1;       
             
             System.out.println("Une façon de sortir du parking en "+Integer.toString(nbOfMoves)+" mouvements a été trouvée");
+            
+            solution.getGoalCar().printFirstPlace();
+            for (int i = 0; i < solution.getCarsList().length; ++i)
+                solution.getCarsList()[i].printFirstPlace();
+            
+            System.out.println();
+            
             solution.getGoalCar().printSteps();
             for (int i = 0; i < solution.getCarsList().length; ++i)
                 solution.getCarsList()[i].printSteps();
@@ -56,38 +67,52 @@ public class Solver {
     }
     
     public void printMatrix(){
-            /////////////////////////////// nouvelle fonction - fonction temporaire
-            char[][] carMatrix = new char[dim[0]][dim[1]];
-            for(int i = 0; i < dim[0]; ++i) for (int j = 0; j < dim[1]; ++j) carMatrix[i][j] = ' ';
+        /////////////////////////////// nouvelle fonction - fonction temporaire
+        char[][] carMatrix = new char[dim[0]][dim[1]];
+        for(int i = 0; i < dim[0]; ++i) for (int j = 0; j < dim[1]; ++j) carMatrix[i][j] = ' ';
             
-            int[] currentFront = solution.getGoalCar().copyFront(), currentBehind = solution.getGoalCar().copyBehind();
-            carMatrix[currentFront[0]][currentFront[1]] = solution.getGoalCar().getID().charAt(0);
-            carMatrix[currentBehind[0]][currentBehind[1]] = solution.getGoalCar().getID().charAt(0);
+        int[] currentFront = solution.getGoalCar().copyFront(), currentBehind = solution.getGoalCar().copyBehind();
+        carMatrix[currentFront[0]][currentFront[1]] = solution.getGoalCar().getID().charAt(0);
+        carMatrix[currentBehind[0]][currentBehind[1]] = solution.getGoalCar().getID().charAt(0);
+        
+        for (Car i: solution.getCarsList()){
+            currentFront = i.copyFront(); currentBehind = i.copyBehind();
+            carMatrix[currentFront[0]][currentFront[1]] = i.getID().charAt(0);
+            carMatrix[currentBehind[0]][currentBehind[1]] = i.getID().charAt(0);
+        }
             
-            for (Car i: solution.getCarsList()){
-                currentFront = i.copyFront(); currentBehind = i.copyBehind();
-                carMatrix[currentFront[0]][currentFront[1]] = i.getID().charAt(0);
-                carMatrix[currentBehind[0]][currentBehind[1]] = i.getID().charAt(0);
-            }
-            
-            String line;
-            for(int i = 0; i < dim[0]*2+1; ++i){
-                line = "";
+        String line;
+        for(int i = 0; i < dim[0]*2+1; ++i){
+            line = "";
                 
-                if(i == 0 || dim[0]*2 == i)
-                    for(int j = 0; j < dim[1]; ++j){
-                        if(exit[0] == i/2 && exit[1] == j) line += "+   ";
-                        else line += "+---";
-                        //...
-                    }
-                
+            if(i == 0 || i == dim[0]*2){
                 for(int j = 0; j < dim[1]; ++j){
-                    line += carMatrix[i][j];
+                    if(exit[0] == i/2 && exit[1] == j && vertical) line += "+   ";
+                    else line += "+---";
                 }
-                //...
-                System.out.println(line);
+                line += "+";
             }
-            //////////////////////////////////// nouvelle fonction - fonction temporaire
+            else if(i % 2 == 1){
+                for(int j = 0; j < dim[1]; ++j){
+                    String pre = " ";
+                    if (j == 0)
+                        pre =  ((exit[0] == i/2 && exit[1] == j && !vertical) ? " " : "|");
+                    line +=pre+ " "+ carMatrix[i/2][j] + " ";
+                }
+                String pre = "|";
+                if ( exit[0] == i/2 && exit[1] == dim[1]-1 && !vertical){
+                    pre = " ";
+                }
+                line += pre;
+            }
+            else{
+                for(int j = 0; j < dim[1]; ++j){
+                    line += "+   ";
+                }
+                line += "+";
+            }
+            System.out.println(line);
+        }
+        //////////////////////////////////// nouvelle fonction - fonction temporaire
     }
-    
 }

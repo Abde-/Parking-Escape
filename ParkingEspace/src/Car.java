@@ -149,6 +149,17 @@ public class Car {
         System.out.println(res);
     }
     
+    // afficher etape initiale
+    public void printFirstPlace(){
+        Iterator<int[][]> stepIterator = steps.iterator();
+        int[][] current = stepIterator.next();
+        
+        String res = "La voiture "+ carID + " se trouve en position: ";
+        res += "[("+Integer.toString(current[0][0]) + "," + Integer.toString(current[0][1]) + "),(" +
+                Integer.toString(current[1][0]) + "," + Integer.toString(current[1][1]) + ")] ";
+        System.out.println(res);
+    }
+    
     // à renomer
     public void printNoSolution(){
         System.out.println("Voiture goal bloquée par la voiture "+lastIntersect.getID());
@@ -180,5 +191,8 @@ public class Car {
     }
     public boolean getExitOrient(){
         return exitOrient;
+    }
+    public boolean isVertical(){
+        return orient == 0;
     }
 }
