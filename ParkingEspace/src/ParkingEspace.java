@@ -16,12 +16,13 @@ public class ParkingEspace {
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException{
         long depart = System.currentTimeMillis();
         // lecture et parsing du fichier de données
-        Parser parsedInfo = new Parser("test/test.txt");
+        Parser parsedInfo = new Parser(args[0]);
         
         // résolution du problème
         Solver solution = new Solver(parsedInfo);
         solution.printResult();
-        solution.writeSolution("test/test_out.txt");
+        String newPath = args[0].replace(".txt","")+"_output.txt";
+        solution.writeSolution(newPath);
         
         System.out.println(System.currentTimeMillis() - depart + " ms") ;
     }
