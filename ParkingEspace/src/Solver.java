@@ -53,19 +53,28 @@ public class Solver {
     }
     
     public void printResult(){
+        
+        System.out.println();
+        System.out.println("Le parking a une dimension "+Integer.toString(dim[0]) + " fois "+ Integer.toString(dim[1]));
+        System.out.println("Il contient 1 Goal car et "+Integer.toString(solution.getCarsList().length)+ " autres voitures.") ;
+        
+        solution.getGoalCar().printFirstPlace();
+        for (int i = 0; i < solution.getCarsList().length; ++i)
+            solution.getCarsList()[i].printFirstPlace();
+          
+        System.out.println();
+            
         if (solved){    
-            
-            System.out.println("Une façon de sortir du parking en "+Integer.toString(nbOfMoves)+" mouvements a été trouvée.");
-            
-            solution.getGoalCar().printFirstPlace();
-            for (int i = 0; i < solution.getCarsList().length; ++i)
-                solution.getCarsList()[i].printFirstPlace();
-            
-            System.out.println();
-            
-            solution.getGoalCar().printSteps();
-            for (int i = 0; i < solution.getCarsList().length; ++i)
+ 
+            for (int i = 0; i < solution.getCarsList().length; ++i){
                 solution.getCarsList()[i].printSteps();
+                System.out.println();
+            }
+            solution.getGoalCar().printSteps();
+            System.out.println();
+
+            System.out.println("Une façon de sortir du parking en "+Integer.toString(nbOfMoves)+" mouvements a été trouvée.");
+
         }
         else {
             System.out.println("Il n'y a pas moyen de sortir du parking.");

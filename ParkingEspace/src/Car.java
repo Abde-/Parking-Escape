@@ -133,20 +133,27 @@ public class Car {
     // afficher etapes -> à changer
     public void printSteps(){
         Iterator<int[][]> stepIterator = steps.iterator();
-        int[][] current = stepIterator.next();
+        String[][] cardinal = new String[][]{ {"Nord", "Sud"}, {"Ouest","Est"} };
+        int[][] current = stepIterator.next(), previous;
         
-        String res = "Voiture "+ carID + ": ";
-        res += "[("+Integer.toString(current[0][0]) + "," + Integer.toString(current[0][1]) + "),(" +
-                Integer.toString(current[1][0]) + "," + Integer.toString(current[1][1]) + ")] ";
+        System.out.println("Déplacements effectués par la voiture "+ carID + ":");
+        System.out.println("1. [("+Integer.toString(current[0][0]) + "," + Integer.toString(current[0][1]) + "),(" +
+                Integer.toString(current[1][0]) + "," + Integer.toString(current[1][1]) + ")] Départ.");
         
+        
+        int counter = 1;
         while(stepIterator.hasNext()){
+            counter += 1;
+            
+            previous = current;
             current = stepIterator.next();
-            res += "-> ";
-            res += "[("+Integer.toString(current[0][0]) + "," + Integer.toString(current[0][1]) + "),(" +
-                    Integer.toString(current[1][0]) + "," + Integer.toString(current[1][1]) + ")] ";
+            
+            String res = "";
+            res += Integer.toString(counter)+". [("+Integer.toString(current[0][0]) + "," + Integer.toString(current[0][1])
+                    + "),(" + Integer.toString(current[1][0]) + "," + Integer.toString(current[1][1]) + ")] ";
+            res += cardinal[orient][current[0][orient] > previous[0][orient] ? 1 : 0];
+            System.out.println(res);
         }
-        
-        System.out.println(res);
     }
     
     public void writeSteps(PrintWriter writer){
