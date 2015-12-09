@@ -1,10 +1,10 @@
-import java.util.Stack;
-import java.util.Iterator;
 /**
  *
  * @author Abdeselam / Cedric
  */
-
+import java.util.Stack;
+import java.util.Iterator;
+import java.io.PrintWriter;
 public class Car {
     
     private Stack<int[][]> steps = new Stack<>();  // stack des déplacements
@@ -130,7 +130,7 @@ public class Car {
         front[0] = steps.lastElement()[1][0]; front[1] = steps.lastElement()[1][1];
     }
     
-    // afficher etapes
+    // afficher etapes -> à changer
     public void printSteps(){
         Iterator<int[][]> stepIterator = steps.iterator();
         int[][] current = stepIterator.next();
@@ -147,6 +147,24 @@ public class Car {
         }
         
         System.out.println(res);
+    }
+    
+    public void writeSteps(PrintWriter writer){
+        Iterator<int[][]> stepIterator = steps.iterator();
+        int[][] current = stepIterator.next();
+        
+        String res = "Voiture "+ carID + ": ";
+        res += "[("+Integer.toString(current[0][0]) + "," + Integer.toString(current[0][1]) + "),(" +
+                Integer.toString(current[1][0]) + "," + Integer.toString(current[1][1]) + ")] ";
+        
+        while(stepIterator.hasNext()){
+            current = stepIterator.next();
+            res += "-> ";
+            res += "[("+Integer.toString(current[0][0]) + "," + Integer.toString(current[0][1]) + "),(" +
+                    Integer.toString(current[1][0]) + "," + Integer.toString(current[1][1]) + ")] ";
+        }
+        
+        writer.println(res);
     }
     
     // afficher etape initiale

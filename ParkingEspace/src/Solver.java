@@ -3,6 +3,11 @@
  *
  * @author Abde / Cedric
  */
+
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+        
 public class Solver {
     
     private boolean solved;
@@ -11,6 +16,7 @@ public class Solver {
     private int[] dim;
     private int[] exit;
     private boolean vertical;
+    private int nbOfMoves;
     
     public Solver (Parser parsedInfo){
         // algorithme de résolution du problème
@@ -37,18 +43,19 @@ public class Solver {
         
         // traitement du résultat
         solution = node;
-        if (node.isResult()) solved = true;
+        if (node.isResult()){
+            solved = true;
+            nbOfMoves = solution.getGoalCar().getNbOfMoves()-1;
+            for (int i = 0; i < solution.getCarsList().length; ++i)
+                nbOfMoves += solution.getCarsList()[i].getNbOfMoves()-1;  
+        }
         else solved = false;
     }
     
     public void printResult(){
-        if (solved){
-            printMatrix();
-            int nbOfMoves = solution.getGoalCar().getNbOfMoves()-1;
-            for (int i = 0; i < solution.getCarsList().length; ++i)
-                nbOfMoves += solution.getCarsList()[i].getNbOfMoves()-1;       
+        if (solved){    
             
-            System.out.println("Une façon de sortir du parking en "+Integer.toString(nbOfMoves)+" mouvements a été trouvée");
+            System.out.println("Une façon de sortir du parking en "+Integer.toString(nbOfMoves)+" mouvements a été trouvée.");
             
             solution.getGoalCar().printFirstPlace();
             for (int i = 0; i < solution.getCarsList().length; ++i)
@@ -61,16 +68,37 @@ public class Solver {
                 solution.getCarsList()[i].printSteps();
         }
         else {
-            System.out.println("Il n'y a pas moyen de sortir du parking");
+            System.out.println("Il n'y a pas moyen de sortir du parking.");
             solution.getGoalCar().printNoSolution();
         }
     }
     
-    public void printMatrix(){
-        /////////////////////////////// nouvelle fonction - fonction temporaire
+    public void writeSolution(String path) throws FileNotFoundException, UnsupportedEncodingException{
+        PrintWriter writer = new PrintWriter(path,"UTF-8");
+        
+        writer.println("Situation finale:");
+        writeMatrix(writer);
+        
+        if (solved)
+            writer.println("Une façon de sortir du parking en "+Integer.toString(nbOfMoves)+" mouvements a été trouvée.");
+        else{
+            writer.println("Pas moyen de sortir du parking.");
+        }
+        writer.println();
+        
+        solution.getGoalCar().writeSteps(writer);
+        for (int i = 0; i < solution.getCarsList().length; ++i)
+            solution.getCarsList()[i].writeSteps(writer);
+        
+        writer.close();
+    }
+    
+    public void writeMatrix(PrintWriter writer){
+        
         char[][] carMatrix = new char[dim[0]][dim[1]];
         for(int i = 0; i < dim[0]; ++i) for (int j = 0; j < dim[1]; ++j) carMatrix[i][j] = ' ';
-            
+        
+        // création de nouvelle matrice qui représente les emplacements des voitures
         int[] currentFront = solution.getGoalCar().copyFront(), currentBehind = solution.getGoalCar().copyBehind();
         carMatrix[currentFront[0]][currentFront[1]] = solution.getGoalCar().getID().charAt(0);
         carMatrix[currentBehind[0]][currentBehind[1]] = solution.getGoalCar().getID().charAt(0);
@@ -80,7 +108,8 @@ public class Solver {
             carMatrix[currentFront[0]][currentFront[1]] = i.getID().charAt(0);
             carMatrix[currentBehind[0]][currentBehind[1]] = i.getID().charAt(0);
         }
-            
+        
+        // création ligne par ligne de la matrice
         String line;
         for(int i = 0; i < dim[0]*2+1; ++i){
             line = "";
@@ -111,8 +140,8 @@ public class Solver {
                 }
                 line += "+";
             }
-            System.out.println(line);
+            writer.println(line);
         }
-        //////////////////////////////////// nouvelle fonction - fonction temporaire
+
     }
 }
